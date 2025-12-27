@@ -2,7 +2,9 @@
 .beads/
 .claude/
 
-# Markdown files (exclude README.md and CHANGELOG.md)
+# Markdown files (exclude project documentation)
 *.md
 !README.md
 !CHANGELOG.md
+!INTEGRATIONS.md
+!PORTING-NOTES.md

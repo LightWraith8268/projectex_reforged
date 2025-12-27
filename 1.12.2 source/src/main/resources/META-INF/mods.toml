@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[39,)"
+issueTrackerURL = "https://github.com/FTBTeam/FTB-Mods-Issues"
+license = "GNU LGPLv3"
+
+[[mods]]
+modId = "projectex"
+version = "${file.jarVersion}"
+displayName = "FTB ProjectEX"
+authors = "FTB Team"
+description = '''
+An addon to ProjectE
+'''
+logoFile = "projectex_logo.png"
+
+[[dependencies.projectex]]
+modId = "forge"
+mandatory = true
+versionRange = "[39,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.projectex]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.projectex]]
+modId = "projecte"
+mandatory = true
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"

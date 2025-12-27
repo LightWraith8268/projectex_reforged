@@ -1,0 +1,8 @@
+# Directories
+.beads/
+.claude/
+
+# Markdown files (exclude README.md and CHANGELOG.md)
+*.md
+!README.md
+!CHANGELOG.md

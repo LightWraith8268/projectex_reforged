@@ -21,13 +21,17 @@ ProjectEX is an unofficial extension mod for ProjectE that provides:
 
 ```
 projectex/
-├── 1.12.2 source/          # Original Forge 1.12.2 source code
+├── 1.12.2 source/          # Original Forge 1.18.1 source code (reference)
 ├── 1.16.5/                 # ProjectEX 1.16.5 JAR (reference)
 │   └── projectex-1605.2.0-build.3.jar
 ├── integrations/           # Integration mod JARs for 1.21.1+
 │   ├── ProjectE-1.21.1-PE1.1.0.jar
 │   └── refinedstorage-neoforge-2.0.0.jar
-└── [Future: 1.21.1+ source directory]
+└── neoforge-1.21/          # 1.21.1+ NeoForge port (IN PROGRESS)
+    ├── src/main/java/      # Ported source code
+    ├── src/main/resources/ # Resources and metadata
+    ├── build.gradle        # NeoForge build configuration
+    └── LICENSE.txt         # LGPL-3.0 license
 ```
 
 ## Porting Goals
@@ -43,28 +47,33 @@ projectex/
 
 ## Porting Checklist
 
-### Phase 1: Setup & Infrastructure
-- [ ] Set up NeoForge 1.21.1+ development environment
-- [ ] Create mod project structure
-- [ ] Configure build.gradle with dependencies
-- [ ] Set up mods.toml metadata
-- [ ] Configure IDE for NeoForge development
+### Phase 1: Setup & Infrastructure ✅ COMPLETED
+- [x] Set up NeoForge 1.21.1+ development environment
+- [x] Create mod project structure
+- [x] Configure build.gradle with dependencies
+- [x] Set up mods.toml metadata
+- [x] Configure IDE for NeoForge development
 
-### Phase 2: Core Systems Migration
+### Phase 2: Core Systems Migration 🔄 IN PROGRESS
+- [x] Port Matter enum system (15 tiers)
+- [x] Port Star enum system (6 variants)
+- [x] Set up DeferredRegister pattern
 - [ ] Port EMC calculation and storage systems
-- [ ] Migrate power flower mechanics
-- [ ] Port collector mechanics
-- [ ] Update relay systems
+- [x] Migrate power flower mechanics (block class complete)
+- [x] Port collector mechanics (block class complete)
+- [x] Update relay systems (block class complete)
 - [ ] Migrate link systems (Personal, Refined, Energy, Compressed)
+- [ ] Implement block entities with capabilities
 
-### Phase 3: Items & Blocks
-- [ ] Port all matter items (colored matter system)
-- [ ] Port star items (Magnum, Colossal, Final)
-- [ ] Port collector blocks (all tiers)
-- [ ] Port power flower blocks (all tiers)
-- [ ] Port relay blocks (all tiers)
+### Phase 3: Items & Blocks 🔄 IN PROGRESS
+- [x] Port all matter items (colored matter system)
+- [x] Port star items (Magnum, Colossal, Final)
+- [x] Port collector blocks (all tiers)
+- [x] Port power flower blocks (all tiers)
+- [x] Port relay blocks (all tiers)
+- [ ] Port link blocks (Energy, Personal, Refined, Compressed)
 - [ ] Port transmutation tables (Stone, Alchemy)
-- [ ] Port utility items (Arcane Tablet, Knowledge Sharing Book)
+- [ ] Port utility items (Arcane Tablet, Knowledge Sharing Book, Tome of Knowledge)
 
 ### Phase 4: Integration
 - [ ] ProjectE integration (EMC hooks)
@@ -153,9 +162,66 @@ cd projectex
 
 This is a port project. Major features should remain consistent with the original ProjectEX design philosophy while adapting to modern Minecraft/NeoForge standards.
 
+## Current Port Status
+
+### ✅ Completed Components
+
+**Core Infrastructure:**
+- NeoForge 7.0.145 build system configured
+- Mod metadata (neoforge.mods.toml) with ProjectE/Refined Storage dependencies
+- LGPL-3.0 licensing with proper attribution to LatvianModder
+- DeferredRegister pattern for all registries
+
+**Enums & Constants:**
+- Matter.java (15 tiers: BASIC → FINAL) with EMC values
+- Star.java (6 variants: Ein, Zwei, Drei, Vier, Sphere, Omega)
+- ProjectEX.java main class with modern CreativeModeTab
+
+**Block Classes (3/5 core types):**
+- CollectorBlock.java (all 15 tiers via Matter enum)
+- RelayBlock.java (all 15 tiers)
+- PowerFlowerBlock.java (all 15 tiers with VoxelShape, owner tracking)
+
+**Item Registration:**
+- All Matter-based items registered
+- All Star items registered
+- BlockItem wrappers for all blocks
+
+### 🔄 In Progress
+
+**Block Classes:**
+- Link blocks (Energy, Personal, Refined, Compressed) - pending
+- Table blocks (Stone, Alchemy) - pending
+
+**Block Entities:**
+- All block entity implementations with NeoForge capabilities - pending
+- EMC storage capability integration - pending
+
+### ⏳ Not Started
+
+- Data generation (models, recipes, blockstates, lang files)
+- Utility items (Arcane Tablet, Knowledge Sharing Book)
+- ProjectE/Refined Storage capability integration
+- Testing and builds
+
+### Next Steps
+
+1. Implement remaining block classes (Link + Table blocks)
+2. Implement all block entities with ProjectE EMC capabilities
+3. Set up data generation for models and recipes
+4. Add gradle wrapper
+5. First test build
+
+---
+
 ## License
 
-Check the original 1.12.2 source LICENSE.txt for licensing information.
+This project is licensed under **LGPL-3.0** (GNU Lesser General Public License v3.0).
+
+**Original Author:** LatvianModder (ProjectEX 1.12.2/1.16.5)
+**Port Author:** LightWraith8268 (1.21.1+ NeoForge port)
+
+See [LICENSE.txt](neoforge-1.21/LICENSE.txt) and [CREDITS.md](neoforge-1.21/CREDITS.md) for full licensing information.
 
 ## Disclaimer
 
@@ -166,5 +232,5 @@ For general ProjectEX features/bugs, refer to the original repository.
 
 ---
 
-**Port Status:** Planning & Setup Phase
+**Port Status:** Core Infrastructure Complete - Block Implementation Phase
 **Last Updated:** 2025-12-27

@@ -19,12 +19,31 @@
 
 package dev.latvian.mods.projectex.block.entity;
 
+import dev.latvian.mods.projectex.container.AlchemyTableMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-public class AlchemyTableEntity extends BlockEntity {
+public class AlchemyTableEntity extends BlockEntity implements MenuProvider {
 	public AlchemyTableEntity(BlockPos pos, BlockState state) {
 		super(ProjectEXBlockEntities.ALCHEMY_TABLE.get(), pos, state);
+	}
+
+	@Override
+	public Component getDisplayName() {
+		return Component.translatable("container.projectex_reforged.alchemy_table");
+	}
+
+	@Nullable
+	@Override
+	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+		// Create the Alchemy Table menu for the block-based variant
+		return new AlchemyTableMenu(containerId, playerInventory);
 	}
 }

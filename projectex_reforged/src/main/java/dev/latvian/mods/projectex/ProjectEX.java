@@ -22,6 +22,7 @@ package dev.latvian.mods.projectex;
 import dev.latvian.mods.projectex.block.ProjectEXBlocks;
 import dev.latvian.mods.projectex.block.entity.ProjectEXBlockEntities;
 import dev.latvian.mods.projectex.item.ProjectEXItems;
+import dev.latvian.mods.projectex.menu.ProjectEXMenuTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -60,6 +61,7 @@ public class ProjectEX {
 		ProjectEXBlocks.REGISTRY.register(modEventBus);
 		ProjectEXItems.REGISTRY.register(modEventBus);
 		ProjectEXBlockEntities.REGISTRY.register(modEventBus);
+		ProjectEXMenuTypes.REGISTRY.register(modEventBus);
 		CREATIVE_TABS.register(modEventBus);
 	}
 }

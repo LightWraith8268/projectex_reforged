@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 
 @Mod(ProjectEX.MOD_ID)
 public class ProjectEX {
-	public static final String MOD_ID = "projectex";
+	public static final String MOD_ID = "projectex_reforged";
 
 	public static final Direction[] DIRECTIONS = Direction.values();
 

@@ -8,31 +8,31 @@ version="${mod_version}"
 displayName="${mod_name}"
 description='''${mod_description}'''
 authors="${mod_authors}"
-displayURL="https://github.com/LightWraith8268/projectex"
+displayURL="https://github.com/LightWraith8268/projectex_reforged"
 logoFile="logo.png"
 
-[[dependencies.projectex]]
+[[dependencies.projectex_reforged]]
     modId="neoforge"
     type="required"
     versionRange="${neoforge_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.projectex]]
+[[dependencies.projectex_reforged]]
     modId="minecraft"
     type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.projectex]]
+[[dependencies.projectex_reforged]]
     modId="projecte"
     type="required"
     versionRange="[1.1.0,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.projectex]]
+[[dependencies.projectex_reforged]]
     modId="refinedstorage"
     type="optional"
     versionRange="[2.0.0,)"

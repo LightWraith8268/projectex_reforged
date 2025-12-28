@@ -1,4 +1,6 @@
-# ProjectEX - 1.21.1+ NeoForge Port
+# ProjectEX Reforged - 1.21.1+ NeoForge Port
+
+**A modern NeoForge port of ProjectEX, extending ProjectE with low-lag EMC generation, improved transmutation tables, and massive EMC storage solutions.**
 
 **Porting ProjectEX from Forge 1.12.2/1.16.5 to NeoForge 1.21.1+**
 
@@ -20,14 +22,14 @@ ProjectEX is an unofficial extension mod for ProjectE that provides:
 ## Repository Structure
 
 ```
-projectex/
+projectex_reforged/
 ├── 1.12.2 source/          # Original Forge 1.18.1 source code (reference)
 ├── 1.16.5/                 # ProjectEX 1.16.5 JAR (reference)
 │   └── projectex-1605.2.0-build.3.jar
 ├── integrations/           # Integration mod JARs for 1.21.1+
 │   ├── ProjectE-1.21.1-PE1.1.0.jar
 │   └── refinedstorage-neoforge-2.0.0.jar
-└── neoforge-1.21/          # 1.21.1+ NeoForge port (IN PROGRESS)
+└── projectex_reforged/     # 1.21.1+ NeoForge port (IN PROGRESS)
     ├── src/main/java/      # Ported source code
     ├── src/main/resources/ # Resources and metadata
     ├── build.gradle        # NeoForge build configuration
@@ -129,8 +131,8 @@ projectex/
 ### Initial Setup
 ```bash
 # Clone the repository
-git clone https://github.com/LightWraith8268/projectex.git
-cd projectex/neoforge-1.21
+git clone https://github.com/LightWraith8268/projectex_reforged.git
+cd projectex_reforged/projectex_reforged
 
 # Setup workspace
 ./gradlew genIntellijRuns  # For IntelliJ
@@ -144,7 +146,7 @@ cd projectex/neoforge-1.21
 
 ```bash
 # Build the mod
-cd neoforge-1.21
+cd projectex_reforged
 ./gradlew build
 
 # Output will be in build/libs/
@@ -252,7 +254,7 @@ This project is licensed under **LGPL-3.0** (GNU Lesser General Public License v
 **Original Author:** LatvianModder (ProjectEX 1.12.2/1.16.5)
 **Port Author:** LightWraith8268 (1.21.1+ NeoForge port)
 
-See [LICENSE.txt](neoforge-1.21/LICENSE.txt) and [CREDITS.md](neoforge-1.21/CREDITS.md) for full licensing information.
+See [LICENSE.txt](projectex_reforged/LICENSE.txt) and [CREDITS.md](projectex_reforged/CREDITS.md) for full licensing information.
 
 ## Disclaimer
 

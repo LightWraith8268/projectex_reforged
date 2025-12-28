@@ -35,7 +35,7 @@ public class ProjectEXLanguageProvider extends LanguageProvider {
 	@Override
 	protected void addTranslations() {
 		// Creative tab
-		add("itemGroup." + ProjectEX.MOD_ID, "ProjectEX");
+		add("itemGroup." + ProjectEX.MOD_ID, "ProjectEX Reforged");
 
 		// Matter items
 		for (Matter matter : Matter.VALUES) {

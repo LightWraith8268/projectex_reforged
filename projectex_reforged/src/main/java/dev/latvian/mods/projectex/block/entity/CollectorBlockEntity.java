@@ -77,22 +77,14 @@ public class CollectorBlockEntity extends BlockEntity implements IEmcStorage {
 					BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
 
 					if (blockEntity != null) {
-						IEmcStorage storage = blockEntity.getLevel()
-								.getCapability(PECapabilities.EMC_STORAGE_BLOCK,
-										blockEntity.getBlockPos(),
-										blockEntity.getBlockState(),
-										blockEntity,
-										direction.getOpposite());
+						IEmcStorage storage = level.getCapability(PECapabilities.EMC_STORAGE_CAPABILITY,
+								blockEntity.getBlockPos(),
+								direction.getOpposite());
 
 						if (storage != null && storage.insertEmc(1L, IEmcStorage.EmcAction.SIMULATE) > 0L) {
 							temp.add(storage);
 
-							if (blockEntity instanceof RelayMK1BlockEntity relay) {
-								for (int i = 0; i < 20; i++) {
-									relay.addBonus();
-								}
-								blockEntity.setChanged();
-							} else if (blockEntity instanceof RelayBlockEntity relay) {
+							if (blockEntity instanceof RelayBlockEntity relay) {
 								relay.addBonus();
 								blockEntity.setChanged();
 							}

@@ -7,6 +7,8 @@ import dev.latvian.mods.projectex.block.ProjectEXBlocks;
 import net.minecraft.Util;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -18,7 +20,7 @@ public class ProjectEXItems {
 			DeferredRegister.createItems(ProjectEX.MOD_ID);
 
 	// Helper method for block items
-	private static DeferredItem<BlockItem> blockItem(String id, DeferredItem<? extends net.minecraft.world.level.block.Block> block) {
+	private static DeferredItem<BlockItem> blockItem(String id, DeferredBlock<? extends Block> block) {
 		return REGISTRY.registerSimpleBlockItem(id, block);
 	}
 

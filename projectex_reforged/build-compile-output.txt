@@ -1,0 +1,199 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/padra/.gradle/wrapper/dists/gradle-8.7-bin/bhs2wmbdwecv87pi65oeuq5iu/gradle-8.7/lib/native-platform-0.22-milestone-25.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.7/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :cacheVersionManifest1.21.1 UP-TO-DATE
+> Task :cacheVersionExecutableClient1.21.1 UP-TO-DATE
+> Task :cacheVersionExecutableServer1.21.1 UP-TO-DATE
+> Task :cacheVersionMappingsClient1.21.1 UP-TO-DATE
+> Task :cacheVersionMappingsServer1.21.1 UP-TO-DATE
+> Task :neoFormListLibraries UP-TO-DATE
+> Task :neoFormStripClient UP-TO-DATE
+> Task :neoFormExtractServer UP-TO-DATE
+> Task :neoFormStripServer UP-TO-DATE
+> Task :neoFormMerge UP-TO-DATE
+> Task :neoFormMergeMappings UP-TO-DATE
+> Task :neoFormRename UP-TO-DATE
+> Task :neoFormDecompile UP-TO-DATE
+> Task :neoFormApplyForgesAccessTransformer UP-TO-DATE
+> Task :neoFormInject UP-TO-DATE
+> Task :neoFormPatch UP-TO-DATE
+> Task :neoFormPatchUserDev UP-TO-DATE
+> Task :neoFormApplyOfficialMappings UP-TO-DATE
+> Task :neoFormUnzipSources UP-TO-DATE
+> Task :create1.21.1ClientExtraJar UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.minecraft_client_1.21.1_client-extra UP-TO-DATE
+> Task :neoFormRecompile UP-TO-DATE
+> Task :neoFormPackRecomp UP-TO-DATE
+> Task :supplyRawJarForneoFormJoined1.21.1-20240808.144430 UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.neoforged_neoforge_21.1.73 UP-TO-DATE
+
+> Task :compileJava
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\AlchemyTableBlock.java:71: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\CollectorBlock.java:81: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\CompressedRefinedLinkBlock.java:51: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\EnergyLinkBlock.java:64: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\PersonalLinkBlock.java:51: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\PowerFlowerBlock.java:126: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\ProjectEXBlocks.java:56: error: variable PERSONAL_LINK is already defined in class ProjectEXBlocks
+	public static final DeferredBlock<Block> PERSONAL_LINK =
+	                                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\ProjectEXBlocks.java:59: error: variable ENERGY_LINK is already defined in class ProjectEXBlocks
+	public static final DeferredBlock<Block> ENERGY_LINK =
+	                                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\ProjectEXBlocks.java:62: error: variable REFINED_LINK is already defined in class ProjectEXBlocks
+	public static final DeferredBlock<Block> REFINED_LINK =
+	                                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\ProjectEXBlocks.java:65: error: variable COMPRESSED_REFINED_LINK is already defined in class ProjectEXBlocks
+	public static final DeferredBlock<Block> COMPRESSED_REFINED_LINK =
+	                                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\RefinedLinkBlock.java:51: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\RelayBlock.java:80: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\StoneTableBlock.java:98: error: package Item does not exist
+	public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+	                                                 ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\AlchemyTableBlock.java:42: error: AlchemyTableBlock is not abstract and does not override abstract method codec() in BaseEntityBlock
+public class AlchemyTableBlock extends BaseEntityBlock {
+       ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\CompressedRefinedLinkBlock.java:37: error: incompatible types: invalid constructor reference
+	public static final MapCodec<CompressedRefinedLinkBlock> CODEC = simpleCodec(CompressedRefinedLinkBlock::new);
+	                                                                             ^
+    constructor CompressedRefinedLinkBlock in class CompressedRefinedLinkBlock cannot be applied to given types
+      required: no arguments
+      found:    Properties
+      reason: actual and formal argument lists differ in length
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\EnergyLinkBlock.java:40: error: incompatible types: invalid constructor reference
+	public static final MapCodec<EnergyLinkBlock> CODEC = simpleCodec(EnergyLinkBlock::new);
+	                                                                  ^
+    constructor EnergyLinkBlock in class EnergyLinkBlock cannot be applied to given types
+      required: no arguments
+      found:    Properties
+      reason: actual and formal argument lists differ in length
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\entity\CollectorBlockEntity.java:81: error: cannot find symbol
+								.getCapability(PECapabilities.EMC_STORAGE_BLOCK,
+								                             ^
+  symbol:   variable EMC_STORAGE_BLOCK
+  location: class PECapabilities
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\entity\CollectorBlockEntity.java:92: error: method addBonus in class RelayMK1BlockEntity cannot be applied to given types;
+									relay.addBonus();
+									     ^
+  required: Level,BlockPos
+  found:    no arguments
+  reason: actual and formal argument lists differ in length
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\entity\LinkBaseBlockEntity.java:79: error: cannot find symbol
+				IKnowledgeProvider provider = level.getCapability(PECapabilities.KNOWLEDGE,
+				                                                                ^
+  symbol:   variable KNOWLEDGE
+  location: class PECapabilities
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\entity\PowerFlowerBlockEntity.java:83: error: cannot find symbol
+					IKnowledgeProvider provider = level.getCapability(PECapabilities.KNOWLEDGE,
+					                                                                ^
+  symbol:   variable KNOWLEDGE
+  location: class PECapabilities
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\entity\RelayBlockEntity.java:79: error: cannot find symbol
+						IEmcStorage storage = level.getCapability(PECapabilities.EMC_STORAGE_BLOCK,
+						                                                        ^
+  symbol:   variable EMC_STORAGE_BLOCK
+  location: class PECapabilities
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\PersonalLinkBlock.java:37: error: incompatible types: invalid constructor reference
+	public static final MapCodec<PersonalLinkBlock> CODEC = simpleCodec(PersonalLinkBlock::new);
+	                                                                    ^
+    constructor PersonalLinkBlock in class PersonalLinkBlock cannot be applied to given types
+      required: no arguments
+      found:    Properties
+      reason: actual and formal argument lists differ in length
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\block\RefinedLinkBlock.java:37: error: incompatible types: invalid constructor reference
+	public static final MapCodec<RefinedLinkBlock> CODEC = simpleCodec(RefinedLinkBlock::new);
+	                                                                   ^
+    constructor RefinedLinkBlock in class RefinedLinkBlock cannot be applied to given types
+      required: no arguments
+      found:    Properties
+      reason: actual and formal argument lists differ in length
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\MagnumStarItem.java:76: error: cannot find symbol
+				addEmcToStack(stack, toAdd);
+				^
+  symbol:   method addEmcToStack(ItemStack,long)
+  location: class MagnumStarItem
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\MagnumStarItem.java:90: error: cannot find symbol
+				setEmc(stack, storedEmc - toRemove);
+				^
+  symbol:   method setEmc(ItemStack,long)
+  location: class MagnumStarItem
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\MagnumStarItem.java:98: error: cannot find symbol
+		return getEmc(stack);
+		       ^
+  symbol:   method getEmc(ItemStack)
+  location: class MagnumStarItem
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\FinalStarItem.java:53: error: cannot find symbol
+			IKnowledgeProvider provider = level.getCapability(PECapabilities.KNOWLEDGE,
+			                                                                ^
+  symbol:   variable KNOWLEDGE
+  location: class PECapabilities
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:21: error: type argument ? extends Block is not within bounds of type-variable T
+	private static DeferredItem<BlockItem> blockItem(String id, DeferredItem<? extends net.minecraft.world.level.block.Block> block) {
+	                                                                         ^
+  where T is a type-variable:
+    T extends Item declared in class DeferredItem
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:27: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("energy_link", ProjectEXBlocks.ENERGY_LINK);
+			                                        ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:30: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("personal_link", ProjectEXBlocks.PERSONAL_LINK);
+			                                          ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:33: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("refined_link", ProjectEXBlocks.REFINED_LINK);
+			                                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:36: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("compressed_refined_link", ProjectEXBlocks.COMPRESSED_REFINED_LINK);
+			                                                    ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:43: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+							ProjectEXBlocks.COLLECTOR.get(matter)));
+							                             ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:51: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+							ProjectEXBlocks.RELAY.get(matter)));
+							                         ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:59: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+							ProjectEXBlocks.POWER_FLOWER.get(matter)));
+							                                ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:65: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("stone_table", ProjectEXBlocks.STONE_TABLE);
+			                                        ^
+D:\Coding\projectex\projectex_reforged\src\main\java\dev\latvian\mods\projectex\item\ProjectEXItems.java:68: error: incompatible types: DeferredBlock<Block> cannot be converted to DeferredItem<? extends Block>
+			blockItem("alchemy_table", ProjectEXBlocks.ALCHEMY_TABLE);
+			                                          ^
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+37 errors
+
+> Task :compileJava FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+BUILD FAILED in 15s
+26 actionable tasks: 1 executed, 25 up-to-date

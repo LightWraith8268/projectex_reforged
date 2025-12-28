@@ -76,11 +76,7 @@ public abstract class LinkBaseBlockEntity extends BlockEntity implements IEmcSto
 			ServerPlayer player = level.getServer().getPlayerList().getPlayer(owner);
 
 			if (player != null && !storedEMC.equals(BigInteger.ZERO)) {
-				IKnowledgeProvider provider = level.getCapability(PECapabilities.KNOWLEDGE,
-						player.blockPosition(),
-						null,
-						player,
-						null);
+				IKnowledgeProvider provider = player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY);
 
 				if (provider != null) {
 					provider.setEmc(provider.getEmc().add(storedEMC));

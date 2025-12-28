@@ -24,7 +24,9 @@ import moze_intel.projecte.api.capabilities.block_entity.IEmcStorage;
 import moze_intel.projecte.api.capabilities.item.IItemEmcHolder;
 import moze_intel.projecte.gameObjs.items.IBarHelper;
 import moze_intel.projecte.gameObjs.items.ItemPE;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 public class MagnumStarItem extends ItemPE implements IItemEmcHolder, IBarHelper {
 	public static final long[] STAR_EMC = new long[12];
@@ -101,5 +103,21 @@ public class MagnumStarItem extends ItemPE implements IItemEmcHolder, IBarHelper
 	@Override
 	public long getMaximumEmc(ItemStack stack) {
 		return STAR_EMC[tier.ordinal()];
+	}
+
+	// Helper methods for EMC storage using CustomData
+	private static long getEmc(ItemStack stack) {
+		CustomData data = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
+		return data.copyTag().getLong("EMC");
+	}
+
+	private static void setEmc(ItemStack stack, long emc) {
+		stack.update(DataComponents.CUSTOM_DATA, CustomData.EMPTY, customData ->
+			customData.update(tag -> tag.putLong("EMC", emc)));
+	}
+
+	private static void addEmcToStack(ItemStack stack, long toAdd) {
+		long current = getEmc(stack);
+		setEmc(stack, current + toAdd);
 	}
 }

@@ -50,11 +50,7 @@ public class FinalStarItem extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		if (!level.isClientSide() && player.isCrouching()) {
-			IKnowledgeProvider provider = level.getCapability(PECapabilities.KNOWLEDGE,
-					player.blockPosition(),
-					null,
-					player,
-					null);
+			IKnowledgeProvider provider = player.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY);
 
 			if (provider != null) {
 				provider.setEmc(BigInteger.ZERO);

@@ -76,10 +76,8 @@ public class RelayBlockEntity extends BlockEntity implements IEmcStorage {
 					BlockEntity tileEntity = level.getBlockEntity(worldPosition.relative(direction));
 
 					if (tileEntity != null) {
-						IEmcStorage storage = level.getCapability(PECapabilities.EMC_STORAGE_BLOCK,
+						IEmcStorage storage = level.getCapability(PECapabilities.EMC_STORAGE_CAPABILITY,
 								tileEntity.getBlockPos(),
-								tileEntity.getBlockState(),
-								tileEntity,
 								direction.getOpposite());
 
 						if (storage != null && !storage.isRelay() && storage.insertEmc(1L, EmcAction.SIMULATE) > 0L) {

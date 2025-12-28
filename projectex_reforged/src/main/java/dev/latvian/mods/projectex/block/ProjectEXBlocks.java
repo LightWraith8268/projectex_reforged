@@ -16,16 +16,16 @@ public class ProjectEXBlocks {
 
 	// Link Blocks
 	public static final DeferredBlock<Block> ENERGY_LINK =
-			REGISTRY.register("energy_link", EnergyLinkBlock::new);
+			REGISTRY.register("energy_link", () -> new EnergyLinkBlock());
 
 	public static final DeferredBlock<Block> PERSONAL_LINK =
-			REGISTRY.register("personal_link", PersonalLinkBlock::new);
+			REGISTRY.register("personal_link", () -> new PersonalLinkBlock());
 
 	public static final DeferredBlock<Block> REFINED_LINK =
-			REGISTRY.register("refined_link", RefinedLinkBlock::new);
+			REGISTRY.register("refined_link", () -> new RefinedLinkBlock());
 
 	public static final DeferredBlock<Block> COMPRESSED_REFINED_LINK =
-			REGISTRY.register("compressed_refined_link", CompressedRefinedLinkBlock::new);
+			REGISTRY.register("compressed_refined_link", () -> new CompressedRefinedLinkBlock());
 
 	// Matter-Tiered Blocks
 	public static final Map<Matter, DeferredBlock<Block>> COLLECTOR =
@@ -52,23 +52,10 @@ public class ProjectEXBlocks {
 				}
 			});
 
-	// Link Blocks
-	public static final DeferredBlock<Block> PERSONAL_LINK =
-			REGISTRY.register("personal_link", PersonalLinkBlock::new);
-
-	public static final DeferredBlock<Block> ENERGY_LINK =
-			REGISTRY.register("energy_link", EnergyLinkBlock::new);
-
-	public static final DeferredBlock<Block> REFINED_LINK =
-			REGISTRY.register("refined_link", RefinedLinkBlock::new);
-
-	public static final DeferredBlock<Block> COMPRESSED_REFINED_LINK =
-			REGISTRY.register("compressed_refined_link", CompressedRefinedLinkBlock::new);
-
 	// Transmutation Tables
 	public static final DeferredBlock<Block> STONE_TABLE =
-			REGISTRY.register("stone_table", StoneTableBlock::new);
+			REGISTRY.register("stone_table", () -> new StoneTableBlock());
 
 	public static final DeferredBlock<Block> ALCHEMY_TABLE =
-			REGISTRY.register("alchemy_table", AlchemyTableBlock::new);
+			REGISTRY.register("alchemy_table", () -> new AlchemyTableBlock());
 }

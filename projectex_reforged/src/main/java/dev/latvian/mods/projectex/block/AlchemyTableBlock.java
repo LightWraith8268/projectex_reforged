@@ -52,8 +52,12 @@ public class AlchemyTableBlock extends BaseEntityBlock {
 			box(12, 0, 2, 14, 9, 4)     // Leg 4
 	);
 
+	public AlchemyTableBlock(BlockBehaviour.Properties properties) {
+		super(properties);
+	}
+
 	public AlchemyTableBlock() {
-		super(BlockBehaviour.Properties.of()
+		this(BlockBehaviour.Properties.of()
 				.strength(1F)
 				.sound(SoundType.STONE)
 				.noOcclusion()

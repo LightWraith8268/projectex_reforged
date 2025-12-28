@@ -65,17 +65,21 @@ repositories {
         name = 'Refined Mods'
         url = 'https://maven.refinedmods.com/'
     }
+    // Local JARs from integrations folder
+    flatDir {
+        dirs '../integrations'
+    }
 }
 
 dependencies {
     implementation "net.neoforged:neoforge:${neoforge_version}"
 
-    // ProjectE - REQUIRED
-    implementation fg.deobf("moze_intel.projecte:ProjectE:${projecte_version}")
+    // ProjectE - REQUIRED (using local JAR from integrations folder)
+    implementation files('../integrations/ProjectE-1.21.1-PE1.1.0.jar')
 
-    // Refined Storage - Optional integration
-    compileOnly fg.deobf("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}")
-    runtimeOnly fg.deobf("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorage_version}")
+    // Refined Storage - Optional integration (using local JAR from integrations folder)
+    compileOnly files('../integrations/refinedstorage-neoforge-2.0.0.jar')
+    runtimeOnly files('../integrations/refinedstorage-neoforge-2.0.0.jar')
 }
 
 tasks.withType(ProcessResources).configureEach {

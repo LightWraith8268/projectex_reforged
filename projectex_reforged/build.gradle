@@ -82,6 +82,10 @@ dependencies {
     // ProjectE - REQUIRED (NeoForge 1.21.1 version from local JAR)
     implementation files('../integrations/ProjectE-1.21.1-PE1.1.0.jar')
 
+    // JEI - Just Enough Items (for testing and recipe viewing)
+    compileOnly files('../integrations/jei-1.21.1-neoforge-19.25.1.329.jar')
+    runtimeOnly files('../integrations/jei-1.21.1-neoforge-19.25.1.329.jar')
+
     // Refined Storage - Optional integration (using local JAR from integrations folder)
     compileOnly files('../integrations/refinedstorage-neoforge-2.0.0.jar')
     runtimeOnly files('../integrations/refinedstorage-neoforge-2.0.0.jar')

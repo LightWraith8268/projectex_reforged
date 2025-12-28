@@ -23,6 +23,7 @@ import moze_intel.projecte.api.capabilities.IKnowledgeProvider;
 import moze_intel.projecte.api.capabilities.PECapabilities;
 import moze_intel.projecte.api.capabilities.block_entity.IEmcStorage;
 import moze_intel.projecte.api.capabilities.item.IItemEmcHolder;
+import moze_intel.projecte.api.proxy.IEMCProxy;
 import moze_intel.projecte.gameObjs.container.TransmutationContainer;
 import moze_intel.projecte.gameObjs.container.slots.SlotPredicates;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,11 +37,12 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 
 import java.math.BigInteger;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Alchemy Table Menu - Enhanced Transmutation Container with Crafting Grid
@@ -131,9 +133,17 @@ public class AlchemyTableMenu extends TransmutationContainer {
 
 			@Override
 			public void onTake(Player player, ItemStack stack) {
-				// Called when player takes crafted item
+				// Called when player takes crafted item (normal click)
 				onCraftedItem(stack);
 				super.onTake(player, stack);
+			}
+
+			@Override
+			public void onQuickCraft(ItemStack oldStack, ItemStack newStack) {
+				// Called during shift-click operations
+				int craftedCount = oldStack.getCount() - newStack.getCount();
+				// Track how many items were actually crafted for potential EMC refund
+				super.onQuickCraft(oldStack, newStack);
 			}
 		});
 
@@ -149,16 +159,161 @@ public class AlchemyTableMenu extends TransmutationContainer {
 	}
 
 	/**
-	 * Called when an item is crafted - handles recipe consumption and auto-learning
-	 * This is Phase 3 (Auto-Learn) preparation
+	 * Called when an item is crafted - handles recipe consumption with smart ingredient priority
+	 * Phase 2: Ingredient consumption (inventory first, then EMC)
+	 * Phase 3: Auto-learn system (implemented later)
 	 */
 	private void onCraftedItem(ItemStack craftedStack) {
-		// TODO Phase 2: Implement ingredient consumption with inventory priority
-		// TODO Phase 3: Implement auto-learn system for crafted items with EMC
+		if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+			return; // Only process on server
+		}
 
-		// For now, just clear the crafting grid (vanilla behavior)
-		craftingGrid.clearContent();
-		updateCraftingResult();
+		// Get the current recipe
+		CraftingInput craftingInput = craftingGrid.asCraftInput();
+		Optional<RecipeHolder<CraftingRecipe>> optionalRecipe = player.level()
+				.getRecipeManager()
+				.getRecipeFor(RecipeType.CRAFTING, craftingInput, player.level());
+
+		if (optionalRecipe.isEmpty()) {
+			return; // No valid recipe
+		}
+
+		CraftingRecipe recipe = optionalRecipe.get().value();
+
+		// Consume ingredients with priority: inventory first, then EMC for shortfall
+		boolean success = consumeIngredients(recipe, false);
+
+		if (success) {
+			// Clear the crafting grid after successful craft
+			craftingGrid.clearContent();
+			updateCraftingResult();
+		}
+	}
+
+	/**
+	 * Consume ingredients for crafting with smart priority system
+	 * Priority: 1. Real items from inventory, 2. EMC transmutation for missing items
+	 *
+	 * @param recipe The recipe being crafted
+	 * @param simulate If true, check if crafting is possible without consuming
+	 * @return true if ingredients were successfully consumed (or would be in simulate mode)
+	 */
+	private boolean consumeIngredients(CraftingRecipe recipe, boolean simulate) {
+		if (!(player instanceof ServerPlayer serverPlayer)) {
+			return false;
+		}
+
+		// Get player's knowledge provider for EMC access
+		IKnowledgeProvider knowledge = serverPlayer.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY);
+		if (knowledge == null) {
+			return false;
+		}
+
+		// Build ingredient requirement map from recipe
+		Map<ItemStack, Integer> ingredientNeeds = new HashMap<>();
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			if (ingredient.isEmpty()) {
+				continue;
+			}
+
+			// Get first matching item from ingredient (for EMC lookup)
+			ItemStack[] matchingStacks = ingredient.getItems();
+			if (matchingStacks.length == 0) {
+				continue;
+			}
+
+			ItemStack representativeStack = matchingStacks[0].copy();
+			ingredientNeeds.merge(representativeStack, 1, Integer::sum);
+		}
+
+		// Track EMC cost and items to consume
+		long totalEmcCost = 0;
+		List<ItemStack> itemsToConsume = new ArrayList<>();
+
+		// For each ingredient, check inventory first, then calculate EMC shortfall
+		for (Map.Entry<ItemStack, Integer> entry : ingredientNeeds.entrySet()) {
+			ItemStack ingredientStack = entry.getKey();
+			int needed = entry.getValue();
+
+			// Count how many of this ingredient are in player inventory
+			int foundInInventory = 0;
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack invStack = player.getInventory().getItem(i);
+				if (ItemStack.isSameItemSameComponents(invStack, ingredientStack)) {
+					foundInInventory += invStack.getCount();
+				}
+			}
+
+			// Calculate shortfall (how many need to be transmuted)
+			int shortfall = needed - foundInInventory;
+
+			if (shortfall > 0) {
+				// Need to transmute some items - calculate EMC cost
+				long emcPerItem = IEMCProxy.INSTANCE.getValue(ingredientStack);
+
+				if (emcPerItem <= 0) {
+					// Item has no EMC value - can't transmute
+					return false;
+				}
+
+				// Check if player has learned this item
+				if (!knowledge.hasKnowledge(ingredientStack)) {
+					// Player hasn't learned this item - can't transmute
+					return false;
+				}
+
+				totalEmcCost += emcPerItem * shortfall;
+			}
+
+			// Track items to consume from inventory (up to the amount needed)
+			int toConsumeFromInventory = Math.min(needed, foundInInventory);
+			if (toConsumeFromInventory > 0) {
+				ItemStack consumeStack = ingredientStack.copy();
+				consumeStack.setCount(toConsumeFromInventory);
+				itemsToConsume.add(consumeStack);
+			}
+		}
+
+		// Check if player has enough EMC for the shortfall
+		BigInteger playerEmc = knowledge.getEmc();
+		if (playerEmc.compareTo(BigInteger.valueOf(totalEmcCost)) < 0) {
+			// Not enough EMC
+			return false;
+		}
+
+		// If simulating, we're done (everything checks out)
+		if (simulate) {
+			return true;
+		}
+
+		// Execute consumption: inventory first, then EMC
+		// 1. Consume from inventory
+		for (ItemStack consumeStack : itemsToConsume) {
+			int remainingToConsume = consumeStack.getCount();
+
+			for (int i = 0; i < player.getInventory().getContainerSize() && remainingToConsume > 0; i++) {
+				ItemStack invStack = player.getInventory().getItem(i);
+
+				if (ItemStack.isSameItemSameComponents(invStack, consumeStack)) {
+					int toTake = Math.min(remainingToConsume, invStack.getCount());
+					invStack.shrink(toTake);
+					remainingToConsume -= toTake;
+
+					if (invStack.isEmpty()) {
+						player.getInventory().setItem(i, ItemStack.EMPTY);
+					}
+				}
+			}
+		}
+
+		// 2. Consume EMC for shortfall
+		if (totalEmcCost > 0) {
+			BigInteger newEmc = playerEmc.subtract(BigInteger.valueOf(totalEmcCost));
+			knowledge.setEmc(newEmc);
+			knowledge.syncEmc(serverPlayer);
+		}
+
+		return true;
 	}
 
 	/**
@@ -302,13 +457,174 @@ public class AlchemyTableMenu extends TransmutationContainer {
 	}
 
 	/**
-	 * Shift-click handling - integrates crafting slots with transmutation inventory
+	 * Shift-click handling - implements bulk crafting with EMC budget calculation
+	 * Phase 2: Smart shift-click behavior
 	 */
 	@Override
 	public ItemStack quickMoveStack(Player player, int slotIndex) {
-		// TODO Phase 2: Implement smart shift-click behavior
-		// For now, delegate to parent for transmutation slots
+		Slot slot = slots.get(slotIndex);
+		if (slot == null || !slot.hasItem()) {
+			return ItemStack.EMPTY;
+		}
+
+		ItemStack slotStack = slot.getItem();
+		ItemStack originalStack = slotStack.copy();
+
+		// Check if this is the crafting result slot (shift-clicking to bulk craft)
+		if (slot == slots.get(slots.size() - 2)) { // Result slot is second-to-last (Klein Star is last)
+			return handleBulkCrafting(slotStack);
+		}
+
+		// Default shift-click behavior for other slots
 		return super.quickMoveStack(player, slotIndex);
+	}
+
+	/**
+	 * Handle shift-click on crafting result slot (bulk crafting)
+	 * Crafts as many items as possible based on:
+	 * - Available EMC
+	 * - Output item stack limit (up to 64 or item max)
+	 * - Recipe ingredient availability
+	 */
+	private ItemStack handleBulkCrafting(ItemStack craftedStack) {
+		if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+			return ItemStack.EMPTY;
+		}
+
+		// Get the current recipe
+		CraftingInput craftingInput = craftingGrid.asCraftInput();
+		Optional<RecipeHolder<CraftingRecipe>> optionalRecipe = player.level()
+				.getRecipeManager()
+				.getRecipeFor(RecipeType.CRAFTING, craftingInput, player.level());
+
+		if (optionalRecipe.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+
+		CraftingRecipe recipe = optionalRecipe.get().value();
+
+		// Get player's knowledge provider for EMC access
+		IKnowledgeProvider knowledge = serverPlayer.getCapability(PECapabilities.KNOWLEDGE_CAPABILITY);
+		if (knowledge == null) {
+			return ItemStack.EMPTY;
+		}
+
+		// Calculate maximum number of crafts possible
+		int maxCrafts = calculateMaxCrafts(recipe, knowledge);
+
+		if (maxCrafts <= 0) {
+			return ItemStack.EMPTY;
+		}
+
+		// Limit to stack size (64 or item max)
+		int stackLimit = craftedStack.getMaxStackSize();
+		maxCrafts = Math.min(maxCrafts, stackLimit / craftedStack.getCount());
+
+		// Perform bulk crafting
+		int totalCrafted = 0;
+		for (int i = 0; i < maxCrafts; i++) {
+			// Try to craft one item
+			if (!consumeIngredients(recipe, true)) {
+				break; // Can't craft anymore (out of EMC or ingredients)
+			}
+
+			// Actually consume ingredients
+			if (!consumeIngredients(recipe, false)) {
+				break; // Something went wrong
+			}
+
+			// Add crafted item to player inventory
+			ItemStack result = craftedStack.copy();
+			if (!player.getInventory().add(result)) {
+				// Inventory full - stop crafting
+				break;
+			}
+
+			totalCrafted++;
+		}
+
+		if (totalCrafted > 0) {
+			// Clear crafting grid and update result
+			craftingGrid.clearContent();
+			updateCraftingResult();
+
+			// Return a stack representing what was crafted (for sound/animation purposes)
+			ItemStack craftedResult = craftedStack.copy();
+			craftedResult.setCount(totalCrafted * craftedStack.getCount());
+			return craftedResult;
+		}
+
+		return ItemStack.EMPTY;
+	}
+
+	/**
+	 * Calculate maximum number of times a recipe can be crafted
+	 * Based on: available inventory items, player EMC, and stack limits
+	 */
+	private int calculateMaxCrafts(CraftingRecipe recipe, IKnowledgeProvider knowledge) {
+		int maxCrafts = Integer.MAX_VALUE;
+
+		// Build ingredient requirement map from recipe
+		Map<ItemStack, Integer> ingredientNeeds = new HashMap<>();
+		for (Ingredient ingredient : recipe.getIngredients()) {
+			if (ingredient.isEmpty()) {
+				continue;
+			}
+
+			ItemStack[] matchingStacks = ingredient.getItems();
+			if (matchingStacks.length == 0) {
+				continue;
+			}
+
+			ItemStack representativeStack = matchingStacks[0].copy();
+			ingredientNeeds.merge(representativeStack, 1, Integer::sum);
+		}
+
+		// Calculate max crafts based on inventory items and EMC budget
+		BigInteger playerEmc = knowledge.getEmc();
+		long totalEmcCostPerCraft = 0;
+
+		for (Map.Entry<ItemStack, Integer> entry : ingredientNeeds.entrySet()) {
+			ItemStack ingredientStack = entry.getKey();
+			int neededPerCraft = entry.getValue();
+
+			// Count how many of this ingredient are in player inventory
+			int foundInInventory = 0;
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack invStack = player.getInventory().getItem(i);
+				if (ItemStack.isSameItemSameComponents(invStack, ingredientStack)) {
+					foundInInventory += invStack.getCount();
+				}
+			}
+
+			// Calculate how many crafts are possible with inventory items
+			int craftsFromInventory = foundInInventory / neededPerCraft;
+
+			// If we need more than inventory provides, calculate EMC cost
+			if (craftsFromInventory < maxCrafts) {
+				long emcPerItem = IEMCProxy.INSTANCE.getValue(ingredientStack);
+
+				if (emcPerItem <= 0 || !knowledge.hasKnowledge(ingredientStack)) {
+					// Can't transmute this item - limit to inventory
+					maxCrafts = Math.min(maxCrafts, craftsFromInventory);
+					continue;
+				}
+
+				// Calculate EMC cost per craft for items not in inventory
+				int itemsNeededFromEmc = Math.max(0, neededPerCraft - (foundInInventory % neededPerCraft));
+				totalEmcCostPerCraft += emcPerItem * itemsNeededFromEmc;
+			}
+
+			maxCrafts = Math.min(maxCrafts, craftsFromInventory);
+		}
+
+		// Calculate max crafts based on EMC budget
+		if (totalEmcCostPerCraft > 0) {
+			long emcBudgetCrafts = playerEmc.divide(BigInteger.valueOf(totalEmcCostPerCraft)).longValue();
+			maxCrafts = Math.min(maxCrafts, (int) emcBudgetCrafts);
+		}
+
+		return maxCrafts;
 	}
 
 	/**

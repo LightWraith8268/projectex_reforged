@@ -75,10 +75,19 @@ public class ProjectEXItemModelProvider extends ItemModelProvider {
 		singleTexture("final_star", mcLoc("item/generated"),
 			"layer0", modLoc("item/final_star"));
 
+		// Compressed Collectors - use non-compressed collector block texture
+		// The FoilItem class adds enchanted glint effect automatically
+		for (Matter matter : Matter.VALUES) {
+			singleTexture(matter.name + "_compressed_collector", mcLoc("item/generated"),
+				"layer0", modLoc("block/collector/" + matter.name));
+		}
+
 		// Utility items
 		singleTexture("arcane_tablet", mcLoc("item/generated"),
 			"layer0", modLoc("item/arcane_tablet"));
 		singleTexture("knowledge_sharing_book", mcLoc("item/generated"),
 			"layer0", modLoc("item/knowledge_sharing_book"));
+		singleTexture("final_star_shard", mcLoc("item/generated"),
+			"layer0", modLoc("item/final_star_shard"));
 	}
 }

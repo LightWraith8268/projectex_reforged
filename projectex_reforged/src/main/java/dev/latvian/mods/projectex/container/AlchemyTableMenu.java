@@ -84,20 +84,23 @@ public class AlchemyTableMenu extends TransmutationContainer {
 	 * Constructor for portable Arcane Tablet (held in hand)
 	 */
 	public AlchemyTableMenu(int windowId, Inventory playerInv, InteractionHand hand) {
-		// Call parent TransmutationContainer constructor with hand
+		this(windowId, playerInv, hand, 0);
+	}
+
+	/**
+	 * Constructor for both portable Arcane Tablet and block-based Alchemy Table
+	 * @param selectedSlot The slot index of the hand item (-1 for block-based)
+	 */
+	public AlchemyTableMenu(int windowId, Inventory playerInv, InteractionHand hand, int selectedSlot) {
+		// Call parent TransmutationContainer constructor with hand and selected slot
 		// This initializes the transmutation inventory and slots
-		super(windowId, playerInv, hand, 0); // 0 = no additional slots yet
+		super(windowId, playerInv, hand, selectedSlot);
 
 		this.player = playerInv.player;
 
 		// Add our custom slots for crafting and charging
 		initCustomSlots();
 	}
-
-	/**
-	 * Constructor for block-based Alchemy Table (removed - use hand variant instead)
-	 * Block entities now use the same hand-based constructor as items.
-	 */
 
 	/**
 	 * Initialize custom slots for crafting grid, result, and Klein Star charging

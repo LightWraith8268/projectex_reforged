@@ -136,7 +136,7 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 			.define('S', ProjectEXBlocks.STONE_TABLE.get())
 			.group("projectex")
 			.unlockedBy("has_stone_table", has(ProjectEXBlocks.STONE_TABLE.get()))
-			.save(output, ProjectEX.MOD_ID + ":alchemy_table");
+			.save(output);  // Use default save location (alchemy_table)
 
 		// Arcane Tablet recipe
 		// [Red Matter] [Alchemy Table] [Red Matter]
@@ -152,6 +152,6 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 			.define('T', Items.ENDER_CHEST)  // Placeholder for Transmutation Tablet
 			.group("projectex")
 			.unlockedBy("has_alchemy_table", has(ProjectEXBlocks.ALCHEMY_TABLE.get()))
-			.save(output, ProjectEX.MOD_ID + ":arcane_tablet");
+			.save(output);  // Use default save location (arcane_tablet)
 	}
 }

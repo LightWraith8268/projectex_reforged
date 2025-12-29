@@ -47,7 +47,8 @@ public class AlchemyTableEntity extends BlockEntity implements MenuProvider, IMe
 	@Override
 	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
 		// Create the Alchemy Table menu for the block-based variant
-		return new AlchemyTableMenu(containerId, playerInventory, InteractionHand.MAIN_HAND);
+		// -1 for selected slot means no hand slot selected (block-based, not item-based)
+		return new AlchemyTableMenu(containerId, playerInventory, InteractionHand.MAIN_HAND, -1);
 	}
 
 	@Override

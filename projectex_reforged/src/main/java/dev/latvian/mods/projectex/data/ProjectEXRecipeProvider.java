@@ -27,8 +27,11 @@ import dev.latvian.mods.projectex.item.ProjectEXItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -117,5 +120,38 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 			}
 			prevStar = star;
 		}
+
+		// Alchemy Table recipe
+		// [Dark Matter] [Alchemy Bag] [Dark Matter]
+		// [Alchemy Bag] [Stone Table] [Alchemy Bag]
+		// [Dark Matter] [Alchemy Bag] [Dark Matter]
+		// Note: Using Obsidian as placeholder for Stone Table and Ender Chests for Alchemy Bags until ProjectE items are available
+		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, ProjectEXBlocks.ALCHEMY_TABLE.get())
+			.pattern("DMD")
+			.pattern("ASA")
+			.pattern("DMD")
+			.define('D', Items.OBSIDIAN)  // Placeholder for Dark Matter
+			.define('M', Items.ENDER_CHEST)  // Placeholder for Alchemy Bag
+			.define('A', Items.ENDER_CHEST)  // Placeholder for Alchemy Bag
+			.define('S', ProjectEXBlocks.STONE_TABLE.get())
+			.group("projectex")
+			.unlockedBy("has_stone_table", has(ProjectEXBlocks.STONE_TABLE.get()))
+			.save(output, ProjectEX.MOD_ID + ":alchemy_table");
+
+		// Arcane Tablet recipe
+		// [Red Matter] [Alchemy Table] [Red Matter]
+		// [Red Matter] [Transmutation Tablet] [Red Matter]
+		// [Red Matter] [Red Matter] [Red Matter]
+		// Note: Using Nether Star as placeholder for Red Matter and Ender Chest for Transmutation Tablet until ProjectE items are available
+		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ProjectEXItems.ARCANE_TABLET.get())
+			.pattern("RAR")
+			.pattern("RTR")
+			.pattern("RRR")
+			.define('R', Items.NETHER_STAR)  // Placeholder for Red Matter
+			.define('A', ProjectEXBlocks.ALCHEMY_TABLE.get())
+			.define('T', Items.ENDER_CHEST)  // Placeholder for Transmutation Tablet
+			.group("projectex")
+			.unlockedBy("has_alchemy_table", has(ProjectEXBlocks.ALCHEMY_TABLE.get()))
+			.save(output, ProjectEX.MOD_ID + ":arcane_tablet");
 	}
 }

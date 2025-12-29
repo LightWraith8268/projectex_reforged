@@ -21,16 +21,19 @@ package dev.latvian.mods.projectex.block.entity;
 
 import dev.latvian.mods.projectex.container.AlchemyTableMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.client.extensions.IMenuProviderExtension;
 import org.jetbrains.annotations.Nullable;
 
-public class AlchemyTableEntity extends BlockEntity implements MenuProvider {
+public class AlchemyTableEntity extends BlockEntity implements MenuProvider, IMenuProviderExtension {
 	public AlchemyTableEntity(BlockPos pos, BlockState state) {
 		super(ProjectEXBlockEntities.ALCHEMY_TABLE.get(), pos, state);
 	}
@@ -44,7 +47,12 @@ public class AlchemyTableEntity extends BlockEntity implements MenuProvider {
 	@Override
 	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
 		// Create the Alchemy Table menu for the block-based variant
-		// Use MAIN_HAND variant with 0 param to avoid constructor mismatch
-		return new AlchemyTableMenu(containerId, playerInventory, net.minecraft.world.InteractionHand.MAIN_HAND);
+		return new AlchemyTableMenu(containerId, playerInventory, InteractionHand.MAIN_HAND);
+	}
+
+	@Override
+	public void writeClientSideData(AbstractContainerMenu menu, RegistryFriendlyByteBuf buffer) {
+		// Send hand to client for menu construction
+		buffer.writeEnum(InteractionHand.MAIN_HAND);
 	}
 }

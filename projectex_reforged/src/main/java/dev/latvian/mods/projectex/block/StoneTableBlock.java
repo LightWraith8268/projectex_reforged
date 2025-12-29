@@ -82,7 +82,7 @@ public class StoneTableBlock extends Block {
 
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
-		return defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace().getOpposite());
+		return defaultBlockState().setValue(BlockStateProperties.FACING, context.getClickedFace());
 	}
 
 	@Override

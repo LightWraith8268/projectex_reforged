@@ -88,9 +88,7 @@ public class StoneTableBlock extends Block {
 	@Override
 	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-			serverPlayer.openMenu(new ContainerProvider(), buf -> {
-				buf.writeBoolean(false); // OFF_HAND equivalent
-			});
+			serverPlayer.openMenu(new ContainerProvider());
 		}
 		return InteractionResult.SUCCESS;
 	}

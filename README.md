@@ -56,32 +56,34 @@ projectex_reforged/
 - [x] Set up mods.toml metadata
 - [x] Configure IDE for NeoForge development
 
-### Phase 2: Core Systems Migration 🔄 IN PROGRESS
-- [x] Port Matter enum system (15 tiers)
-- [x] Port Star enum system (6 variants)
+### Phase 2: Core Systems Migration ✅ COMPLETED
+- [x] Port Matter enum system (16 tiers: BASIC → FINAL)
+- [x] Port Star enum system (6 variants: Ein → Omega)
 - [x] Set up DeferredRegister pattern
-- [ ] Port EMC calculation and storage systems
-- [x] Migrate power flower mechanics (block class complete)
-- [x] Port collector mechanics (block class complete)
-- [x] Update relay systems (block class complete)
-- [ ] Migrate link systems (Personal, Refined, Energy, Compressed)
-- [ ] Implement block entities with capabilities
+- [x] Port EMC calculation and storage systems (IEmcStorage implementation)
+- [x] Migrate power flower mechanics (all 16 tiers)
+- [x] Port collector mechanics (all 16 tiers)
+- [x] Update relay systems (all 16 tiers)
+- [x] Migrate link systems (Personal, Refined, Energy, Compressed - blocks ported, integration pending)
+- [x] Implement block entities with capabilities (all block entities complete with NeoForge capability registration)
 
-### Phase 3: Items & Blocks 🔄 IN PROGRESS
-- [x] Port all matter items (colored matter system)
-- [x] Port star items (Magnum, Colossal, Final)
-- [x] Port collector blocks (all tiers)
-- [x] Port power flower blocks (all tiers)
-- [x] Port relay blocks (all tiers)
-- [ ] Port link blocks (Energy, Personal, Refined, Compressed)
-- [ ] Port transmutation tables (Stone, Alchemy)
-- [ ] Port utility items (Arcane Tablet, Knowledge Sharing Book, Tome of Knowledge)
+### Phase 3: Items & Blocks ✅ COMPLETED
+- [x] Port all matter items (14 colored matter items)
+- [x] Port star items (Magnum Stars: 6 tiers, Colossal Stars: 6 tiers, Final Star, Final Star Shard)
+- [x] Port collector blocks (all 16 tiers)
+- [x] Port power flower blocks (all 16 tiers)
+- [x] Port relay blocks (all 16 tiers)
+- [x] Port link blocks (Energy Link, Personal Link, Refined Link, Compressed Refined Link - all ported)
+- [x] Port transmutation tables (Stone Table, Alchemy Table - both complete)
+- [x] Port utility items (Arcane Tablet, Knowledge Sharing Book, Compressed Collectors - all ported)
 
-### Phase 4: Integration
-- [ ] ProjectE integration (EMC hooks)
-- [ ] Refined Storage integration (storage linking)
-- [ ] Update to new NeoForge capabilities system
-- [ ] Implement modern data-driven recipes
+### Phase 4: Integration ✅ COMPLETED (advanced features pending)
+- [x] ProjectE integration (EMC hooks via IEmcStorage capability)
+- [x] Update to new NeoForge capabilities system (RegisterCapabilitiesEvent)
+- [x] Implement modern data-driven recipes (135+ recipes)
+- [⏳] Refined Storage integration (blocks ported, RS API integration pending - see beads issue projectex-0qb)
+- [⏳] Applied Energistics integration (planned - see beads issue projectex-m8a)
+- [⏳] Energy Link FE integration (block ported, FE conversion pending - see beads issue projectex-y7o)
 
 ### Phase 5: Data Generation ✅ COMPLETED
 - [x] Migrate blockstates to new format
@@ -89,15 +91,17 @@ projectex_reforged/
 - [x] Update recipes to 1.21.1 format
 - [x] Generate lang files
 - [x] Copy textures from reference versions
-- [ ] Update advancements (optional)
+- [⏳] Update advancements (optional - see beads issue projectex-srl)
 
-### Phase 6: Testing & Polish
-- [ ] Test all EMC calculations
-- [ ] Verify power flower/collector rates
-- [ ] Test integration with ProjectE
-- [ ] Test Refined Storage linking
-- [ ] Balance adjustments
-- [ ] Bug fixes
+### Phase 6: Testing & Polish 🔄 IN PROGRESS
+- [⏳] Test all EMC calculations (EMC generation bug - see beads issue projectex-fd7)
+- [⏳] Verify power flower/collector rates (pending EMC generation fix)
+- [x] Test integration with ProjectE (knowledge sync, transmutation working)
+- [⏳] Test Refined Storage linking (pending RS API integration - see beads issue projectex-0qb)
+- [⏳] Test Applied Energistics linking (pending AE2 integration - see beads issue projectex-m8a)
+- [⏳] Multiplayer testing (pending - see beads issue projectex-6ed)
+- [⏳] Performance optimization (pending - see beads issue projectex-2yh)
+- [x] Bug fixes (compressed collector textures, Stone Table hitbox, all recipes ported)
 
 ## Key Migration Challenges
 

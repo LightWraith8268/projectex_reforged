@@ -120,5 +120,20 @@ public class ProjectEX {
 			ProjectEXBlockEntities.ENERGY_LINK.get(),
 			(blockEntity, side) -> blockEntity.getEnergyStorage(side)
 		);
+
+		// Register Forge Energy capability for Compressed Energy Link
+		// 100x faster EMC↔FE conversion for high-throughput systems
+		event.registerBlockEntity(
+			Capabilities.EnergyStorage.BLOCK,
+			ProjectEXBlockEntities.COMPRESSED_ENERGY_LINK.get(),
+			(blockEntity, side) -> blockEntity.getEnergyStorage(side)
+		);
+
+		// Register EMC Storage capability for Compressed Energy Link
+		event.registerBlockEntity(
+			PECapabilities.EMC_STORAGE_CAPABILITY,
+			ProjectEXBlockEntities.COMPRESSED_ENERGY_LINK.get(),
+			(blockEntity, side) -> blockEntity
+		);
 	}
 }

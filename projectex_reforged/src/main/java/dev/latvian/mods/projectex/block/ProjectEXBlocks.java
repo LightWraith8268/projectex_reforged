@@ -18,6 +18,9 @@ public class ProjectEXBlocks {
 	public static final DeferredBlock<Block> ENERGY_LINK =
 			REGISTRY.register("energy_link", () -> new EnergyLinkBlock());
 
+	public static final DeferredBlock<Block> COMPRESSED_ENERGY_LINK =
+			REGISTRY.register("compressed_energy_link", () -> new CompressedEnergyLinkBlock());
+
 	public static final DeferredBlock<Block> PERSONAL_LINK =
 			REGISTRY.register("personal_link", () -> new PersonalLinkBlock());
 

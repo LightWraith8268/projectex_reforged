@@ -28,34 +28,35 @@ import org.jetbrains.annotations.Nullable;
 import java.math.BigInteger;
 
 /**
- * Energy Link block entity that provides bidirectional EMC↔FE conversion.
+ * Compressed Energy Link block entity - 100x faster EMC↔FE conversion.
  *
- * Conversion rate: 1 EMC = 10 FE (configurable)
+ * Conversion rate: 1 EMC = 1000 FE (100x normal Energy Link)
  *
  * Features:
- * - Receives FE from adjacent energy producers → converts to EMC
- * - Provides FE to adjacent energy consumers ← converts from EMC
- * - Accumulated EMC transfers to player knowledge every 20 ticks (like other Link blocks)
+ * - Receives FE from adjacent energy producers → converts to EMC (100x faster)
+ * - Provides FE to adjacent energy consumers ← converts from EMC (100x faster)
+ * - Max throughput: 1,000,000 FE/tick (vs 10,000 FE/tick for normal Energy Link)
+ * - Accumulated EMC transfers to player knowledge every 20 ticks
  *
- * This allows integration with FE-based power systems in both directions.
+ * Perfect for high-power systems and bulk EMC generation from FE.
  */
-public class EnergyLinkBlockEntity extends LinkBaseBlockEntity {
-	// EMC to FE conversion rate (1 EMC = 10 FE)
-	public static final int EMC_TO_FE_RATIO = 10;
+public class CompressedEnergyLinkBlockEntity extends LinkBaseBlockEntity {
+	// EMC to FE conversion rate (1 EMC = 1000 FE) - 100x compressed
+	public static final int EMC_TO_FE_RATIO = 1000;
 
-	// Maximum FE that can be extracted per tick
-	public static final int MAX_FE_EXTRACT_PER_TICK = 10000;
+	// Maximum FE that can be extracted per tick - 100x compressed
+	public static final int MAX_FE_EXTRACT_PER_TICK = 1000000;
 
-	// Maximum FE that can be received per tick
-	public static final int MAX_FE_RECEIVE_PER_TICK = 10000;
+	// Maximum FE that can be received per tick - 100x compressed
+	public static final int MAX_FE_RECEIVE_PER_TICK = 1000000;
 
-	public EnergyLinkBlockEntity(BlockPos pos, BlockState state) {
-		super(ProjectEXBlockEntities.ENERGY_LINK.get(), pos, state);
+	public CompressedEnergyLinkBlockEntity(BlockPos pos, BlockState state) {
+		super(ProjectEXBlockEntities.COMPRESSED_ENERGY_LINK.get(), pos, state);
 	}
 
 	/**
 	 * Get the IEnergyStorage capability for the specified side.
-	 * This allows adjacent blocks to extract FE from the Energy Link.
+	 * This allows adjacent blocks to transfer FE with the Compressed Energy Link.
 	 *
 	 * @param side The side from which energy is being accessed (null for internal access)
 	 * @return IEnergyStorage implementation for this block entity
@@ -65,7 +66,7 @@ public class EnergyLinkBlockEntity extends LinkBaseBlockEntity {
 			@Override
 			public int receiveEnergy(int maxReceive, boolean simulate) {
 				// Convert received FE to EMC and add to storage
-				// This allows FE producers to feed energy into the Energy Link
+				// 100x faster conversion than normal Energy Link
 
 				if (maxReceive <= 0) {
 					return 0;

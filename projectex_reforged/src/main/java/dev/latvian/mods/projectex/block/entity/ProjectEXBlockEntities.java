@@ -18,6 +18,11 @@ public class ProjectEXBlockEntities {
 					BlockEntityType.Builder.of(EnergyLinkBlockEntity::new,
 							ProjectEXBlocks.ENERGY_LINK.get()).build(null));
 
+	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CompressedEnergyLinkBlockEntity>> COMPRESSED_ENERGY_LINK =
+			REGISTRY.register("compressed_energy_link", () ->
+					BlockEntityType.Builder.of(CompressedEnergyLinkBlockEntity::new,
+							ProjectEXBlocks.COMPRESSED_ENERGY_LINK.get()).build(null));
+
 	public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PersonalLinkBlockEntity>> PERSONAL_LINK =
 			REGISTRY.register("personal_link", () ->
 					BlockEntityType.Builder.of(PersonalLinkBlockEntity::new,

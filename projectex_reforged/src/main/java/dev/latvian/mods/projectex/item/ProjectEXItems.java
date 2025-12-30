@@ -28,6 +28,16 @@ public class ProjectEXItems {
 	public static final DeferredItem<BlockItem> ENERGY_LINK =
 			blockItem("energy_link", ProjectEXBlocks.ENERGY_LINK);
 
+	public static final DeferredItem<BlockItem> COMPRESSED_ENERGY_LINK =
+			REGISTRY.register("compressed_energy_link", () ->
+					new BlockItem(ProjectEXBlocks.COMPRESSED_ENERGY_LINK.get(),
+							new Item.Properties().rarity(net.minecraft.world.item.Rarity.RARE)) {
+						@Override
+						public boolean isFoil(net.minecraft.world.item.ItemStack stack) {
+							return true; // Always show enchantment glint
+						}
+					});
+
 	public static final DeferredItem<BlockItem> PERSONAL_LINK =
 			blockItem("personal_link", ProjectEXBlocks.PERSONAL_LINK);
 

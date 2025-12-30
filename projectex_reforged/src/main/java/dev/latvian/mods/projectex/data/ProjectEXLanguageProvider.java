@@ -62,6 +62,7 @@ public class ProjectEXLanguageProvider extends LanguageProvider {
 		// Link blocks
 		add(ProjectEXBlocks.PERSONAL_LINK.get(), "Personal Link");
 		add(ProjectEXBlocks.ENERGY_LINK.get(), "Energy Link");
+		add(ProjectEXBlocks.COMPRESSED_ENERGY_LINK.get(), "Compressed Energy Link");
 		add(ProjectEXBlocks.REFINED_LINK.get(), "Refined Link");
 		add(ProjectEXBlocks.COMPRESSED_REFINED_LINK.get(), "Compressed Refined Link");
 
@@ -101,7 +102,9 @@ public class ProjectEXLanguageProvider extends LanguageProvider {
 
 		// Tooltips - Link Blocks
 		add("block.projectex.personal_link.tooltip", "Transfers EMC to owner's personal EMC");
-		add("block.projectex.energy_link.tooltip", "Converts EMC to Forge Energy (FE)");
+		add("block.projectex.energy_link.tooltip", "Bidirectional EMC ↔ FE conversion (1 EMC = 10 FE)");
+		add("block.projectex.compressed_energy_link.tooltip", "100x faster EMC ↔ FE conversion");
+		add("block.projectex.compressed_energy_link.tooltip.rate", "1 EMC = 1000 FE | Max: 1,000,000 FE/tick");
 		add("block.projectex.refined_link.tooltip", "Provides EMC to Refined Storage network");
 		add("block.projectex.compressed_refined_link.tooltip", "High-capacity Refined Storage EMC link");
 

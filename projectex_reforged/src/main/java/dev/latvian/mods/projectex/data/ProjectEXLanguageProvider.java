@@ -85,5 +85,32 @@ public class ProjectEXLanguageProvider extends LanguageProvider {
 		// Utility items
 		add(ProjectEXItems.ARCANE_TABLET.get(), "Arcane Tablet");
 		add(ProjectEXItems.KNOWLEDGE_SHARING_BOOK.get(), "Knowledge Sharing Book");
+
+		// Tooltips - Collectors
+		add("block.projectex.collector.tooltip", "Generates EMC every second");
+		add("block.projectex.collector.emc_produced", "Produces %s EMC/s");
+
+		// Tooltips - Relays
+		add("block.projectex.relay.tooltip", "Transfers EMC and provides bonus to adjacent collectors");
+		add("block.projectex.relay.relay_bonus", "Relay Bonus: %s EMC/s");
+		add("block.projectex.relay.max_transfer", "Max Transfer: %s EMC/s");
+
+		// Tooltips - Power Flowers
+		add("block.projectex.power_flower.tooltip", "Outputs EMC directly to owner's knowledge");
+
+		// Tooltips - Link Blocks
+		add("block.projectex.personal_link.tooltip", "Transfers EMC to owner's personal EMC");
+		add("block.projectex.energy_link.tooltip", "Converts EMC to Forge Energy (FE)");
+		add("block.projectex.refined_link.tooltip", "Provides EMC to Refined Storage network");
+		add("block.projectex.compressed_refined_link.tooltip", "High-capacity Refined Storage EMC link");
+
+		// Tooltips - Tables
+		add("block.projectex.stone_table.tooltip", "Compact transmutation table");
+		add("block.projectex.alchemy_table.tooltip", "Advanced transmutation with EMC auto-fill");
+
+		// Tooltips - Special Items
+		add("item.projectex.arcane_tablet.tooltip", "Portable Alchemy Table");
+		add("item.projectex.knowledge_sharing_book.tooltip", "Share knowledge between players");
+		add("item.projectex.final_star.tooltip", "The ultimate EMC storage");
 	}
 }

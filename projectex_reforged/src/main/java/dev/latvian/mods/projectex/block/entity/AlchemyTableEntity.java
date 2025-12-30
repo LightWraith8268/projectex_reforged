@@ -46,16 +46,16 @@ public class AlchemyTableEntity extends BlockEntity implements MenuProvider, IMe
 	@Nullable
 	@Override
 	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-		// Create the Alchemy Table menu for the block-based variant
-		// -1 for selected slot means no hand slot selected (block-based, not item-based)
-		return new AlchemyTableMenu(containerId, playerInventory, InteractionHand.MAIN_HAND, -1);
+		// Create menu using 2-parameter constructor for block-based Alchemy Table
+		// This matches ProjectE's pattern for block-based transmutation tables
+		return new AlchemyTableMenu(containerId, playerInventory);
 	}
 
 	@Override
 	public void writeClientSideData(AbstractContainerMenu menu, RegistryFriendlyByteBuf buffer) {
 		// Send hand and selected slot to client for menu construction
-		// Block-based table uses MAIN_HAND with no selected slot (-1)
+		// Block-based table uses MAIN_HAND with -1 to indicate block-based (not portable)
 		buffer.writeEnum(InteractionHand.MAIN_HAND);
-		buffer.writeInt(-1);  // -1 indicates no hand slot selected (block-based)
+		buffer.writeInt(-1);  // -1 indicates block-based (not portable Arcane Tablet)
 	}
 }

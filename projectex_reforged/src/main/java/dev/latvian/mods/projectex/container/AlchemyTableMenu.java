@@ -81,7 +81,30 @@ public class AlchemyTableMenu extends TransmutationContainer {
 		// Read hand and selected slot from packet
 		InteractionHand hand = data.readEnum(InteractionHand.class);
 		int selectedSlot = data.readInt();
-		return new AlchemyTableMenu(windowId, playerInv, hand, selectedSlot);
+
+		// If selectedSlot is -1, this is a block-based Alchemy Table (not portable)
+		// Use 2-parameter constructor to match ProjectE's pattern
+		if (selectedSlot == -1) {
+			return new AlchemyTableMenu(windowId, playerInv);
+		} else {
+			// Portable Arcane Tablet - use 4-parameter constructor
+			return new AlchemyTableMenu(windowId, playerInv, hand, selectedSlot);
+		}
+	}
+
+	/**
+	 * Constructor for block-based Alchemy Table
+	 * Matches ProjectE's TransmutationContainer 2-parameter constructor pattern
+	 */
+	public AlchemyTableMenu(int windowId, Inventory playerInv) {
+		// Call parent TransmutationContainer 2-parameter constructor
+		// This is used for block-based transmutation tables (not portable)
+		super(windowId, playerInv);
+
+		this.player = playerInv.player;
+
+		// Add our custom slots for crafting and charging
+		initCustomSlots();
 	}
 
 	/**
@@ -92,12 +115,12 @@ public class AlchemyTableMenu extends TransmutationContainer {
 	}
 
 	/**
-	 * Constructor for both portable Arcane Tablet and block-based Alchemy Table
-	 * @param selectedSlot The slot index of the hand item (-1 for block-based)
+	 * Constructor for portable Arcane Tablet with specific hand and slot
+	 * @param selectedSlot The slot index of the hand item
 	 */
 	public AlchemyTableMenu(int windowId, Inventory playerInv, InteractionHand hand, int selectedSlot) {
-		// Call parent TransmutationContainer constructor with hand and selected slot
-		// This initializes the transmutation inventory and slots
+		// Call parent TransmutationContainer 4-parameter constructor
+		// This is used for portable transmutation tablets
 		super(windowId, playerInv, hand, selectedSlot);
 
 		this.player = playerInv.player;

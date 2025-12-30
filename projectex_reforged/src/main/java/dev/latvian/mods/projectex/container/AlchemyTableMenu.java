@@ -71,6 +71,9 @@ public class AlchemyTableMenu extends TransmutationContainer {
 	// Player reference for recipe lookup
 	private final Player player;
 
+	// Slot index of the crafting result slot (set during initCustomSlots)
+	private int craftingResultSlotIndex = -1;
+
 	/**
 	 * Network constructor - called on client when opening GUI from packet
 	 */
@@ -123,6 +126,8 @@ public class AlchemyTableMenu extends TransmutationContainer {
 
 		// Add crafting result slot (1 slot)
 		// Position to the right of the crafting grid
+		// Store the slot index for later reference in quickMoveStack
+		craftingResultSlotIndex = slots.size();
 		addSlot(new Slot(craftResult, 0, craftingStartX + 94, craftingStartY + 18) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
@@ -526,7 +531,7 @@ public class AlchemyTableMenu extends TransmutationContainer {
 		ItemStack originalStack = slotStack.copy();
 
 		// Check if this is the crafting result slot (shift-clicking to bulk craft)
-		if (slot == slots.get(slots.size() - 2)) { // Result slot is second-to-last (Klein Star is last)
+		if (slotIndex == craftingResultSlotIndex) {
 			return handleBulkCrafting(slotStack);
 		}
 

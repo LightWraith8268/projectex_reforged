@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "projectex_reforged:energy_link"
+            "items": "projectex_reforged:basic_energy_link"
           }
         ]
       },

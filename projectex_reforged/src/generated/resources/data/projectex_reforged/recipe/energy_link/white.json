@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "projectex:energy_link",
+  "key": {
+    "E": {
+      "item": "projectex_reforged:orange_energy_link"
+    },
+    "M": {
+      "item": "projectex_reforged:white_matter_block"
+    }
+  },
+  "pattern": [
+    " M ",
+    "MEM",
+    " M "
+  ],
+  "result": {
+    "count": 1,
+    "id": "projectex_reforged:white_energy_link"
+  }
+}

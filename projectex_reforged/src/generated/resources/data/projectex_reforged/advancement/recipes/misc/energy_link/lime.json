@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_red_matter": {
+    "has_green_energy_link": {
       "conditions": {
         "items": [
           {
-            "items": "projecte:red_matter"
+            "items": "projectex_reforged:green_energy_link"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "projectex_reforged:energy_link"
+        "recipe": "projectex_reforged:energy_link/lime"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_red_matter"
+      "has_green_energy_link"
     ]
   ],
   "rewards": {
     "recipes": [
-      "projectex_reforged:energy_link"
+      "projectex_reforged:energy_link/lime"
     ]
   }
 }

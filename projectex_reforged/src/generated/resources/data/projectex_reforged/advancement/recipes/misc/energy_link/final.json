@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_fading_energy_link": {
+      "conditions": {
+        "items": [
+          {
+            "items": "projectex_reforged:fading_energy_link"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "projectex_reforged:energy_link/final"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_fading_energy_link"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "projectex_reforged:energy_link/final"
+    ]
+  }
+}

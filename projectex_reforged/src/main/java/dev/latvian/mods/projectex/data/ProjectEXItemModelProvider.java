@@ -42,10 +42,11 @@ public class ProjectEXItemModelProvider extends ItemModelProvider {
 			withExistingParent(matter.name + "_collector", modLoc("block/" + matter.name + "_collector"));
 			withExistingParent(matter.name + "_power_flower", modLoc("block/" + matter.name + "_power_flower"));
 			withExistingParent(matter.name + "_relay", modLoc("block/" + matter.name + "_relay"));
+			withExistingParent(matter.name + "_energy_link", modLoc("block/" + matter.name + "_energy_link"));
+			withExistingParent(matter.name + "_matter_block", modLoc("block/" + matter.name + "_matter_block"));
 		}
 
 		withExistingParent("personal_link", modLoc("block/personal_link"));
-		withExistingParent("energy_link", modLoc("block/energy_link"));
 		withExistingParent("refined_link", modLoc("block/refined_link"));
 		withExistingParent("compressed_refined_link", modLoc("block/compressed_refined_link"));
 		withExistingParent("stone_table", modLoc("block/stone_table"));

@@ -4,7 +4,7 @@
   "group": "projectex:link",
   "key": {
     "B": {
-      "item": "projectex_reforged:energy_link"
+      "item": "projectex_reforged:basic_energy_link"
     },
     "C": {
       "item": "projecte:condenser_mk2"

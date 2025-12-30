@@ -57,11 +57,23 @@ public class ProjectEXBlockStateProvider extends BlockStateProvider {
 					modLoc("block/relay/" + matter.name)));
 		}
 
+		// Energy Links (Matter-tiered)
+		for (Matter matter : Matter.VALUES) {
+			simpleBlock(ProjectEXBlocks.ENERGY_LINK.get(matter).get(),
+				models().cubeAll(matter.name + "_energy_link",
+					modLoc("block/energy_link/" + matter.name)));
+		}
+
+		// Matter Blocks (Matter-tiered)
+		for (Matter matter : Matter.VALUES) {
+			simpleBlock(ProjectEXBlocks.MATTER_BLOCK.get(matter).get(),
+				models().cubeAll(matter.name + "_matter_block",
+					modLoc("block/matter_block/" + matter.name)));
+		}
+
 		// Link blocks
 		simpleBlock(ProjectEXBlocks.PERSONAL_LINK.get(),
 			models().cubeAll("personal_link", modLoc("block/personal_link")));
-		simpleBlock(ProjectEXBlocks.ENERGY_LINK.get(),
-			models().cubeAll("energy_link", modLoc("block/energy_link")));
 		simpleBlock(ProjectEXBlocks.REFINED_LINK.get(),
 			models().cubeAll("refined_link", modLoc("block/refined_link")));
 		simpleBlock(ProjectEXBlocks.COMPRESSED_REFINED_LINK.get(),

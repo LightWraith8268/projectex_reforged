@@ -144,7 +144,7 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 				.pattern("RRR")
 				.pattern("RRR")
 				.define('C', compressedCollector)
-				.define('L', ProjectEXBlocks.ENERGY_LINK.get())
+				.define('L', ProjectEXBlocks.ENERGY_LINK.get(matter).get())
 				.define('R', relay)
 				.group("projectex:power_flower")
 				.unlockedBy("has_compressed_collector", has(compressedCollector))
@@ -263,7 +263,7 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 		// ===== LINK BLOCK RECIPES =====
 		// Energy Link: LMH/SRS/HML
 		// L=low covalence, M=medium covalence, H=high covalence, S=stone, R=red matter
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ProjectEXBlocks.ENERGY_LINK.get())
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ProjectEXBlocks.ENERGY_LINK.get(Matter.BASIC).get())
 			.pattern("LMH")
 			.pattern("SRS")
 			.pattern("HML")
@@ -276,17 +276,34 @@ public class ProjectEXRecipeProvider extends RecipeProvider {
 			.unlockedBy("has_red_matter", has(PEItems.RED_MATTER.get()))
 			.save(output);
 
+		// Tiered Energy Link Upgrades (previous tier + 4 Matter Blocks in + pattern)
+		for (Matter matter : Matter.VALUES) {
+			Matter prev = matter.getPrev();
+			if (prev != null) {
+				// Pattern: _M_/MEM/_M_ where M = matter block, E = previous energy link
+				ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ProjectEXBlocks.ENERGY_LINK.get(matter).get())
+					.pattern(" M ")
+					.pattern("MEM")
+					.pattern(" M ")
+					.define('M', ProjectEXBlocks.MATTER_BLOCK.get(matter).get())
+					.define('E', ProjectEXBlocks.ENERGY_LINK.get(prev).get())
+					.group("projectex:energy_link")
+					.unlockedBy("has_" + prev.name + "_energy_link", has(ProjectEXBlocks.ENERGY_LINK.get(prev).get()))
+					.save(output, ProjectEX.MOD_ID + ":energy_link/" + matter.name);
+			}
+		}
+
 		// Personal Link: RBR/BCB/RBR
 		// B=energy link, R=red matter block, C=condenser mk2
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ProjectEXBlocks.PERSONAL_LINK.get())
 			.pattern("RBR")
 			.pattern("BCB")
 			.pattern("RBR")
-			.define('B', ProjectEXBlocks.ENERGY_LINK.get())
+			.define('B', ProjectEXBlocks.ENERGY_LINK.get(Matter.BASIC).get())
 			.define('R', PEBlocks.RED_MATTER.asItem())
 			.define('C', PEBlocks.CONDENSER_MK2.asItem())
 			.group("projectex:link")
-			.unlockedBy("has_energy_link", has(ProjectEXBlocks.ENERGY_LINK.get()))
+			.unlockedBy("has_energy_link", has(ProjectEXBlocks.ENERGY_LINK.get(Matter.BASIC).get()))
 			.save(output);
 
 		// Refined Link: 9 personal links in 3x3

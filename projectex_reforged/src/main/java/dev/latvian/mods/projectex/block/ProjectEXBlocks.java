@@ -14,13 +14,16 @@ public class ProjectEXBlocks {
 	public static final DeferredRegister.Blocks REGISTRY =
 			DeferredRegister.createBlocks(ProjectEX.MOD_ID);
 
+	// Matter-Tiered Energy Links
+	public static final Map<Matter, DeferredBlock<Block>> ENERGY_LINK =
+			Util.make(new LinkedHashMap<>(), map -> {
+				for (Matter matter : Matter.VALUES) {
+					map.put(matter, REGISTRY.register(matter.name + "_energy_link",
+							() -> new EnergyLinkBlock(matter)));
+				}
+			});
+
 	// Link Blocks
-	public static final DeferredBlock<Block> ENERGY_LINK =
-			REGISTRY.register("energy_link", () -> new EnergyLinkBlock());
-
-	public static final DeferredBlock<Block> COMPRESSED_ENERGY_LINK =
-			REGISTRY.register("compressed_energy_link", () -> new CompressedEnergyLinkBlock());
-
 	public static final DeferredBlock<Block> PERSONAL_LINK =
 			REGISTRY.register("personal_link", () -> new PersonalLinkBlock());
 
@@ -52,6 +55,15 @@ public class ProjectEXBlocks {
 				for (Matter matter : Matter.VALUES) {
 					map.put(matter, REGISTRY.register(matter.name + "_power_flower",
 							() -> new PowerFlowerBlock(matter)));
+				}
+			});
+
+	// Matter Blocks (for Energy Link crafting)
+	public static final Map<Matter, DeferredBlock<Block>> MATTER_BLOCK =
+			Util.make(new LinkedHashMap<>(), map -> {
+				for (Matter matter : Matter.VALUES) {
+					map.put(matter, REGISTRY.register(matter.name + "_matter_block",
+							() -> new MatterBlock(matter)));
 				}
 			});
 

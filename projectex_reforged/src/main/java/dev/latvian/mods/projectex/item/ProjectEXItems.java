@@ -24,20 +24,16 @@ public class ProjectEXItems {
 		return REGISTRY.registerSimpleBlockItem(id, block);
 	}
 
+	// Matter-Tiered Energy Link Items
+	public static final Map<Matter, DeferredItem<BlockItem>> ENERGY_LINK =
+			Util.make(new LinkedHashMap<>(), map -> {
+				for (Matter matter : Matter.VALUES) {
+					map.put(matter, blockItem(matter.name + "_energy_link",
+							ProjectEXBlocks.ENERGY_LINK.get(matter)));
+				}
+			});
+
 	// Link Block Items
-	public static final DeferredItem<BlockItem> ENERGY_LINK =
-			blockItem("energy_link", ProjectEXBlocks.ENERGY_LINK);
-
-	public static final DeferredItem<BlockItem> COMPRESSED_ENERGY_LINK =
-			REGISTRY.register("compressed_energy_link", () ->
-					new BlockItem(ProjectEXBlocks.COMPRESSED_ENERGY_LINK.get(),
-							new Item.Properties().rarity(net.minecraft.world.item.Rarity.RARE)) {
-						@Override
-						public boolean isFoil(net.minecraft.world.item.ItemStack stack) {
-							return true; // Always show enchantment glint
-						}
-					});
-
 	public static final DeferredItem<BlockItem> PERSONAL_LINK =
 			blockItem("personal_link", ProjectEXBlocks.PERSONAL_LINK);
 
@@ -103,6 +99,15 @@ public class ProjectEXItems {
 					if (matter.hasMatterItem) {
 						map.put(matter, REGISTRY.registerSimpleItem(matter.name + "_matter"));
 					}
+				}
+			});
+
+	// Matter Block Items
+	public static final Map<Matter, DeferredItem<BlockItem>> MATTER_BLOCK =
+			Util.make(new LinkedHashMap<>(), map -> {
+				for (Matter matter : Matter.VALUES) {
+					map.put(matter, blockItem(matter.name + "_matter_block",
+							ProjectEXBlocks.MATTER_BLOCK.get(matter)));
 				}
 			});
 

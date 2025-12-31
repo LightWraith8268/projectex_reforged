@@ -23,6 +23,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.latvian.mods.projectex.ProjectEX;
 import dev.latvian.mods.projectex.container.AlchemyTableMenu;
 import moze_intel.projecte.api.capabilities.PECapabilities;
+import moze_intel.projecte.api.capabilities.item.IItemEmcHolder;
 import moze_intel.projecte.api.proxy.IEMCProxy;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -202,9 +203,20 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
 		int x = this.leftPos + slot.x;
 		int y = this.topPos + slot.y;
 
-		// Get Klein Star's stored EMC (would need to access star's NBT in real implementation)
-		// For now, just render a placeholder charge bar
-		int chargePercent = 50; // TODO: Get actual charge from star NBT
+		// Get Klein Star's charge percentage from IItemEmcHolder capability
+		int chargePercent = 0;
+
+		if (stack.getItem() instanceof IItemEmcHolder emcHolder) {
+			long storedEmc = emcHolder.getStoredEmc(stack);
+			long maximumEmc = emcHolder.getMaximumEmc(stack);
+
+			if (maximumEmc > 0) {
+				// Calculate percentage (stored/max * 100)
+				chargePercent = (int) ((storedEmc * 100L) / maximumEmc);
+				// Clamp to 0-100 range
+				chargePercent = Math.max(0, Math.min(100, chargePercent));
+			}
+		}
 
 		// Render charge bar below slot
 		int barWidth = 16;
@@ -218,7 +230,9 @@ public class AlchemyTableScreen extends AbstractContainerScreen<AlchemyTableMenu
 		graphics.fill(x, y + 17, x + barWidth, y + 17 + barHeight, 0xFF333333);
 
 		// Filled bar (gold gradient)
-		graphics.fill(x, y + 17, x + filledWidth, y + 17 + barHeight, 0xFFFFD700);
+		if (filledWidth > 0) {
+			graphics.fill(x, y + 17, x + filledWidth, y + 17 + barHeight, 0xFFFFD700);
+		}
 
 		graphics.pose().popPose();
 	}
